@@ -145,8 +145,7 @@ public class NfcPlugin extends CordovaPlugin {
         } else if (action.equalsIgnoreCase(ERASE_TAG)) {
             eraseTag(callbackContext);
 
-        }
-        else if (action.equalsIgnoreCase(INIT)) {
+        } else if (action.equalsIgnoreCase(INIT)) {
             init(callbackContext);
 
         } else if (action.equalsIgnoreCase(ENABLED)) {
@@ -659,7 +658,7 @@ public class NfcPlugin extends CordovaPlugin {
 
         int flags = getIntent().getFlags();
         if ((flags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) {
-            LOG.i(TAG, "Launched from history, killing recycled intent");
+            Log.i(TAG, "Launched from history, killing recycled intent");
             setIntent(new Intent());
             return true;
         }
@@ -668,7 +667,7 @@ public class NfcPlugin extends CordovaPlugin {
 
     @Override
     public void onPause(boolean multitasking) {
-        LOG.d(TAG, "onPause " + getIntent());
+        Log.d(TAG, "onPause " + getIntent());
         super.onPause(multitasking);
         if (multitasking) {
             // nfc can't run in background
@@ -678,14 +677,14 @@ public class NfcPlugin extends CordovaPlugin {
 
     @Override
     public void onResume(boolean multitasking) {
-        LOG.d(TAG, "onResume " + getIntent());
+        Log.d(TAG, "onResume " + getIntent());
         super.onResume(multitasking);
         startNfc();
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-        LOG.d(TAG, "onNewIntent " + intent);
+        Log.d(TAG, "onNewIntent " + intent);
         super.onNewIntent(intent);
         setIntent(intent);
         savedIntent = intent;
@@ -722,7 +721,7 @@ public class NfcPlugin extends CordovaPlugin {
                 }
 
                 if (tag == null) {
-                    LOG.e(TAG, "No Tag");
+                    Log.e(TAG, "No Tag");
                     callbackContext.error("No Tag");
                     return;
                 }
@@ -744,7 +743,7 @@ public class NfcPlugin extends CordovaPlugin {
                     } catch(NoSuchMethodException e) {
                         // Some technologies do not support this, so just ignore.
                     } catch(JSONException e) {
-                        LOG.e(TAG, "Error serializing JSON", e);
+                        Log.e(TAG, "Error serializing JSON", e);
                     }
                 }
 
@@ -763,16 +762,16 @@ public class NfcPlugin extends CordovaPlugin {
 
                 // Users should never get these reflection errors
             } catch (ClassNotFoundException e) {
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 callbackContext.error(e.getMessage());
             } catch (NoSuchMethodException e) {
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 callbackContext.error(e.getMessage());
             } catch (IllegalAccessException e) {
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 callbackContext.error(e.getMessage());
             } catch (InvocationTargetException e) {
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 callbackContext.error(e.getMessage());
             }
         });
@@ -814,7 +813,7 @@ public class NfcPlugin extends CordovaPlugin {
                 }
 
             } catch (IOException ex) {
-                LOG.e(TAG, "Error closing nfc connection", ex);
+                Log.e(TAG, "Error closing nfc connection", ex);
                 callbackContext.error("Error closing nfc connection " + ex.getLocalizedMessage());
             }
         });
@@ -830,12 +829,12 @@ public class NfcPlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(() -> {
             try {
                 if (tagTechnology == null) {
-                    LOG.e(TAG, "No Tech");
+                    Log.e(TAG, "No Tech");
                     callbackContext.error("No Tech");
                     return;
                 }
                 if (!tagTechnology.isConnected()) {
-                    LOG.e(TAG, "Not connected");
+                    Log.e(TAG, "Not connected");
                     callbackContext.error("Not connected");
                     return;
                 }
@@ -849,17 +848,17 @@ public class NfcPlugin extends CordovaPlugin {
 
             } catch (NoSuchMethodException e) {
                 String error = "TagTechnology " + tagTechnologyClass.getName() + " does not have a transceive function";
-                LOG.e(TAG, error, e);
+                Log.e(TAG, error, e);
                 callbackContext.error(error);
             } catch (NullPointerException e) {
                 // This can happen if the tag has been closed while we're still working with it from the thread pool.
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 callbackContext.error(e.getMessage());
             } catch (IllegalAccessException e) {
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 callbackContext.error(e.getMessage());
             } catch (InvocationTargetException e) {
-                LOG.e(TAG, e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
                 Throwable cause = e.getCause();
                 callbackContext.error(cause.getMessage());
             }
