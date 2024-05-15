@@ -757,7 +757,7 @@ public class NfcPlugin extends CordovaPlugin {
                 callbackContext.success(resultObject);
 
             } catch (IOException ex) {
-                LOG.e(TAG, "Tag connection failed", ex);
+                Log.e(TAG, "Tag connection failed", ex);
                 callbackContext.error("Tag connection failed");
 
                 // Users should never get these reflection errors
