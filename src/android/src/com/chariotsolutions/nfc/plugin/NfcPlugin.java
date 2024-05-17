@@ -425,10 +425,7 @@ public class NfcPlugin extends CordovaPlugin {
             Activity activity = getActivity();
             Intent intent = new Intent(activity, activity.getClass());
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pendingIntent = PendingIntent.getActivity(
-                activity, 0, intent,
-                android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0
-            );
+            pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
         }
     }
 
