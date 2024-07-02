@@ -504,7 +504,6 @@ This method *must* be called from within an NDEF Event Handler.
 - Android
 - BlackBerry 7
 
-
 ## nfc.showSettings
 
 Show the NFC settings on the device.
@@ -693,7 +692,6 @@ Use [scanNdef](#nfcscanndef) for reading NFC tags on iOS unless you need to get 
 
 - iOS
 
-
 ## nfc.cancelScan
 
 Invalidate the NFC session started by `scanNdef` or `scanTag`.
@@ -718,7 +716,6 @@ Function `cancelScan` stops the [NFCReaderSession](https://developer.apple.com/d
 ### Supported Platforms
 
 - iOS
-
 
 # Reader Mode Functions
 
@@ -795,7 +792,6 @@ Disable NFC reader mode.
 ### Supported Platforms
 
 - Android
-
 
 # Tag Technology Functions
 
